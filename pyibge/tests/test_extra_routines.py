@@ -11,9 +11,18 @@ import pyibge
 class TestExtraRoutines(TestCase):
     def test_convert_state_to_ID(self):
         """ Converts the state abbreviation to the state ID. """
-        states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
-        state_IDs = [12, 27, 16, 13, 29, 23, 53, 32, 52, 21, 50, 31, 15, 25, 41, 26, 22, 33, 24, 43, 11, 14, 42, 35, 28, 17]
+        states = [('AC', 12), ('AL', 27), ('AP', 16),
+                  ('AM', 13), ('BA', 29), ('CE', 23),
+                  ('DF', 53), ('ES', 32), ('GO', 52),
+                  ('MA', 21), ('MT', 51), ('MS', 50),
+                  ('MG', 31), ('PA', 15), ('PB', 25),
+                  ('PR', 41), ('PE', 26), ('PI', 22),
+                  ('RJ', 33), ('RN', 24), ('RS', 43),
+                  ('RO', 11), ('RR', 14), ('SC', 42),
+                  ('SP', 35), ('SE', 28), ('TO', 17)]
 
-        for (state, state_id) in zip(states, state_IDs):
+
+        for (state, state_id) in states:
+            print(state)
             self.assertEquals(state_id, pyibge.state_to_id(state))
-            
+
