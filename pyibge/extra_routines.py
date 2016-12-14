@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+#
+# pyIBGE: A module to access data from the Brazilian Institute of Geography and Statistics (IBGE)
+# (c) 2016 Renan Birck Pinheiro [renan.birck.pinheiro@gmail.com]
+
+# This module provides extra routines that can be useful while building a query. 
+
 def state_to_id(state):
     """Convert a state to its ID as used by the IBGE databases. """
     
