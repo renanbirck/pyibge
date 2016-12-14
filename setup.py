@@ -10,4 +10,6 @@ setup(name='pyibge',
       packages=['pyibge'],
       zip_safe=False,
       install_requires=['requests'],
+      test_suite='nose.collector',
+      tests_require=['nose'],
      )

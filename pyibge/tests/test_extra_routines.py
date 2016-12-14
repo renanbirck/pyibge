@@ -24,5 +24,8 @@ class TestExtraRoutines(TestCase):
 
         for (state, state_id) in states:
             print(state)
-            self.assertEquals(state_id, pyibge.state_to_id(state))
+            self.assertEqual(state_id, pyibge.state_to_id(state))
 
+        # Try to look an invalid state.
+        with self.assertRaises(KeyError):
+            pyibge.state_to_id('XY')
