@@ -27,3 +27,18 @@ def state_to_id(state):
               'TO': 17}
 
     return states[state]
+
+def period_to_date(period):
+    """ Convert a period (in AAAAMM form) to a date (in MM/AAAA form). """
+    month = period[4:6]
+    year = period[0:4]
+
+    return month + '/' + year
+
+# Some constants:
+
+ABS_ZERO = '-'       # Zero from nonexisting data 
+COMPUTED_ZERO = '0'  # Zero from rounding
+CENSORED = 'X'       # Zero from censored data
+NA = '..'            # Zero from N/A data
+ND = '...'           # Zero from unavailable data (e.g. city didn't exist)

@@ -29,3 +29,8 @@ class TestExtraRoutines(TestCase):
         # Try to look an invalid state.
         with self.assertRaises(KeyError):
             pyibge.state_to_id('XY')
+
+    def test_period_to_date(self):
+        """ Converts a date in AAAAMM format to MM/AAAA. """
+        date = "201608"
+        self.assertEqual(pyibge.period_to_date(date), "08/2016")

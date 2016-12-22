@@ -12,12 +12,15 @@ import requests
 class IBGEQuery():
     """ The class that represents a query. """
 
-    def __init__(self, table_ID=None):
+    def __init__(self, table_ID=None, period='last',
+                 variables='allxp'):
         if 0 < table_ID < 9999:
             self.table_ID = table_ID
         else:
             raise ValueError("Table ID must be between 0 and 9999.")
-        
         pass
+
+        self.period = period
+        self.variables = variables
 
     pass
