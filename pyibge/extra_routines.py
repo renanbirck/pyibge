@@ -6,7 +6,8 @@
 # This module provides extra routines that can be useful while building a query. 
 
 def state_to_id(state):
-    """Convert a state to its ID as used by the IBGE databases. """
+    """Convert a state to its ID as used by the IBGE databases. 
+    Raises KeyError if the state is invalid. """
     
     state = state.upper()
 
