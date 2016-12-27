@@ -9,7 +9,7 @@
 
 import requests
 
-class IBGEQuery():
+class IBGEQuery:
     """ The class that represents a query. """
 
     def __init__(self, table_ID=None, period='last',
