@@ -53,5 +53,3 @@ class IBGEQuery():
             self.header = kwargs['get_header']
         except KeyError:
             self.header = True
-
-        

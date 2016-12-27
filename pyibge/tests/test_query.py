@@ -14,3 +14,6 @@ class TestExtraRoutines(TestCase):
             to see how we deal with them. """
         with self.assertRaises(ValueError):
             pyibge.IBGEQuery(table_ID=0)
+
+        with self.assertRaises(TypeError):
+            pyibge.IBGEQuery()
