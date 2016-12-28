@@ -27,7 +27,7 @@ class IBGEQuery:
             self.params = params
             
 
-    def URL(self):
+    def build_URL(self):
         """ Builds the URL for the queery. """
     
         CONSTANT_PART = "http://api.sidra.ibge.gov.br/values"
@@ -40,3 +40,10 @@ class IBGEQuery:
         
         return CONSTANT_PART + VARIABLE_PART
     
+    def get_table_info(self):
+        """ Gets the information (table title, variables, periods...)
+        of the table. """
+
+        URL = 'http://api.sidra.ibge.gov.br/desctabapi.aspx?c=' + str(self.table_ID)
+
+
