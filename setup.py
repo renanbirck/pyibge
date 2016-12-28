@@ -17,7 +17,7 @@ setup(name='pyibge',
       license='MIT',
       packages=['pyibge'],
       zip_safe=False,
-      install_requires=['requests'],
+      install_requires=['requests', 'lxml'],
       test_suite='nose.collector',
       tests_require=['nose'],
      )

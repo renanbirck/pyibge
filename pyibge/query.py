@@ -8,6 +8,7 @@
 # Presently, this is a very, VERY thin wrapper arround the API.
 
 import requests
+from lxml import html
 
 class IBGEQuery:
     """ The class that represents a query. 
@@ -44,6 +45,16 @@ class IBGEQuery:
         """ Gets the information (table title, variables, periods...)
         of the table. """
 
+        self.table_info = {}
+
         URL = 'http://api.sidra.ibge.gov.br/desctabapi.aspx?c=' + str(self.table_ID)
 
+        # Fortunately the guys at the IT department of IBGE had the good idea of using
+        # descriptive names for id's and classes in the HTML. Then our work is really
+        # simplified, we don't need to parse HTML.
 
+        help_text = requests.get(URL)
+        help_tree = html.fromstring(help_text.text)   # text instead of content
+                                                      # avoids problems with charset
+        table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
+        self.table_info['table_name'] = table_title
