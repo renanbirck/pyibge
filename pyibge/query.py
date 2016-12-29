@@ -56,5 +56,20 @@ class IBGEQuery:
         help_text = requests.get(URL)
         help_tree = html.fromstring(help_text.text)   # text instead of content
                                                       # avoids problems with charset
+
+        try:
+            unavailable_table = help_tree.xpath('//*[@id="lblMensagem"]/text()')[0]
+        except:
+            unavailable_table = ""
+            pass
+            
+        if 'Tabela não possui dados de uso público' in unavailable_table:
+           raise ValueError("This table is not available to the public.")
+        
+
+        
         table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
         self.table_info['table_name'] = table_title
+
+        self.has_help = True    # We got the help information. Don't redo the query
+                                # unless the table changes.
