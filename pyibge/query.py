@@ -15,6 +15,7 @@ class IBGEQuery:
     It receives the table ID and the parameters (available on the API documentation)."""
 
     def __init__(self, table_ID=None, params=None):
+        self.has_help = False
         if 0 < table_ID < 9999:
             self._table_ID = table_ID
         else:
@@ -26,7 +27,20 @@ class IBGEQuery:
             raise ValueError("Do not specify the 't' parameter in params, it is set by table_ID")
         else:
             self.params = params
-           
+
+    @property
+    def table_ID(self):
+        return self._table_ID
+    
+    @table_ID.setter
+    def table_ID(self, table_ID):
+        self.has_help = False
+        self._table_ID = table_ID
+
+    @table_ID.getter
+    def table_ID(self):
+        return self._table_ID
+
     def build_URL(self):
         """ Builds the URL for the queery. """
     
@@ -43,6 +57,9 @@ class IBGEQuery:
     def get_table_info(self):
         """ Gets the information (table title, variables, periods...)
         of the table. """
+
+        if self.has_help:
+            return
 
         self.table_info = {}
 
