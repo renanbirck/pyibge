@@ -16,7 +16,7 @@ class IBGEQuery:
 
     def __init__(self, table_ID=None, params=None):
         if 0 < table_ID < 9999:
-            self.table_ID = table_ID
+            self._table_ID = table_ID
         else:
             raise ValueError("Table ID must be between 0 and 9999.")
 
@@ -26,8 +26,7 @@ class IBGEQuery:
             raise ValueError("Do not specify the 't' parameter in params, it is set by table_ID")
         else:
             self.params = params
-            
-
+           
     def build_URL(self):
         """ Builds the URL for the queery. """
     
@@ -65,8 +64,6 @@ class IBGEQuery:
             
         if 'Tabela não possui dados de uso público' in unavailable_table:
            raise ValueError("This table is not available to the public.")
-        
-
         
         table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
         self.table_info['table_name'] = table_title

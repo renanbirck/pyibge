@@ -49,4 +49,11 @@ class TestQuery(TestCase):
         query = pyibge.IBGEQuery(table_ID=115, params='n2')
         with self.assertRaises(ValueError):
             query.get_table_info()
-        
+
+    def test_refresh_table(self):
+        """ Test changing the table ID; has_help should change. """
+        query = pyibge.IBGEQuery(table_ID=1000, params='n2')
+        query.get_table_info()
+        self.assertEqual(query.has_help, True)
+        query.table_ID = 999
+        self.assertEqual(query.has_help, False)

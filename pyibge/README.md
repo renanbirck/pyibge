@@ -12,4 +12,4 @@ Future plans:
 * A more user-friendly interface that allows you to specify which survey and which variable you want.
 * Integration with pandas (for time series) and matplotlib (for direct graphing)
 
-While I work for IBGE, this package is developed in my spare time and IBGE can't provide any help relating to it.
+While I work for IBGE, this package is developed in (whatever remains of) my spare time and IBGE can't provide any help relating to it.
