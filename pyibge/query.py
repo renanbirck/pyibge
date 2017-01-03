@@ -11,7 +11,7 @@ import requests
 from lxml import html
 
 class IBGEQuery:
-    """ The class that represents a query. 
+    """ The class that represents a query.
     It receives the table ID and the parameters (available on the API documentation)."""
 
     def __init__(self, table_ID=None, params=None):
@@ -76,12 +76,12 @@ class IBGEQuery:
 
         try:
             unavailable_table = help_tree.xpath('//*[@id="lblMensagem"]/text()')[0]
-        except:
+        except IndexError:
             unavailable_table = ""
-            pass
+
 
         if 'Tabela não possui dados de uso público' in unavailable_table:
-           raise ValueError("This table is not available to the public.")
+            raise ValueError("This table is not available to the public.")
 
         table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
         self.table_info['table_name'] = table_title
