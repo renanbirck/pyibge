@@ -22,7 +22,7 @@ class IBGEQuery:
             raise ValueError("Table ID must be between 0 and 9999.")
 
         if not params:
-            raise ValueError("Need to specify what params you want.")      
+            raise ValueError("Need to specify what params you want.")
         elif '/t/' in params:
             raise ValueError("Do not specify the 't' parameter in params, it is set by table_ID")
         else:
@@ -31,7 +31,8 @@ class IBGEQuery:
     @property
     def table_ID(self):
         return self._table_ID
-    
+
+    # Those ensure that the 'has_help' variable is properly (re)set upon changing the table.
     @table_ID.setter
     def table_ID(self, table_ID):
         self.has_help = False
@@ -43,17 +44,17 @@ class IBGEQuery:
 
     def build_URL(self):
         """ Builds the URL for the queery. """
-    
+
         CONSTANT_PART = "http://api.sidra.ibge.gov.br/values"
         VARIABLE_PART = '/t/' + str(self.table_ID)
 
         if self.params[0] != '/':
             VARIABLE_PART += '/'
-       
+
         VARIABLE_PART += self.params
-        
+
         return CONSTANT_PART + VARIABLE_PART
-    
+
     def get_table_info(self):
         """ Gets the information (table title, variables, periods...)
         of the table. """
@@ -78,10 +79,10 @@ class IBGEQuery:
         except:
             unavailable_table = ""
             pass
-            
+
         if 'Tabela não possui dados de uso público' in unavailable_table:
            raise ValueError("This table is not available to the public.")
-        
+
         table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
         self.table_info['table_name'] = table_title
 
