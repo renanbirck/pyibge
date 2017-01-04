@@ -17,7 +17,7 @@ class IBGEQuery:
     def __init__(self, table_ID=None, params=None):
         self.has_help = False
         if 0 < table_ID < 9999:
-            self._table_ID = table_ID
+            self.my_table_ID = table_ID
         else:
             raise ValueError("Table ID must be between 0 and 9999.")
 
@@ -30,17 +30,20 @@ class IBGEQuery:
 
     @property
     def table_ID(self):
-        return self._table_ID
+        """ Just an alias for my_table_ID. """
+        return self.my_table_ID
 
     # Those ensure that the 'has_help' variable is properly (re)set upon changing the table.
     @table_ID.setter
     def table_ID(self, table_ID):
+        """ Resets the has_help variable upon changing the table ID. """
         self.has_help = False
-        self._table_ID = table_ID
+        self.my_table_ID = table_ID
 
     @table_ID.getter
     def table_ID(self):
-        return self._table_ID
+        """ Just an alias for my_table_ID. """
+        return self.my_table_ID
 
     def build_URL(self):
         """ Builds the URL for the queery. """
