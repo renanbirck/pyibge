@@ -42,7 +42,9 @@ class TestQuery(TestCase):
         query = pyibge.IBGEQuery(table_ID=1000, params='n2')
         query.get_table_info()
 
-        self.assertEqual(query.table_info['table_name'], 'Área plantada, área colhida, quantidade produzida e rendimento médio de amendoim, 1ª e 2ª safras')
+        self.assertEqual(query.table_info['table_name'], 
+        "Área plantada, área colhida, quantidade produzida e rendimento " \
+        "médio de amendoim, 1ª e 2ª safras")
         
     def test_unavailable_table_info(self):
         """ Test trying an unavailable table. """
