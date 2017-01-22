@@ -45,6 +45,13 @@ class TestQuery(TestCase):
         self.assertEqual(query.table_info['table_name'], 
         "Área plantada, área colhida, quantidade produzida e rendimento " \
         "médio de amendoim, 1ª e 2ª safras")
+
+        self.assertEqual(query.table_info['table_survey'],
+        "Produção Agrícola Municipal")
+
+        self.assertEqual(query.table_info['table_theme'],
+        "Lavouras temporárias")
+
         
     def test_unavailable_table_info(self):
         """ Test trying an unavailable table. """
@@ -59,3 +66,24 @@ class TestQuery(TestCase):
         self.assertEqual(query.has_help, True)
         query.table_ID = 999
         self.assertEqual(query.has_help, False)
+
+    def test_get_data(self):
+        """ Run a query, and then check whether we receive the dictionaries. 
+        To avoid issues with changing values, we don't check them, rather, we 
+        check the structure to see if it matches. """
+
+        query = pyibge.IBGEQuery(table_ID=4100, params='p/201201/v/1641/c604/31750/n6/4205407')
+        query.get_data()
+
+        # Check if the information directory was successfully read and parsed
+        # from the JSON answer the server gave.
+
+
+        self.assertEqual(query.variables['D1C'].name, 'Trimestre (Código)')
+        self.assertEqual(query.variables['D1N'].name, 'Trimestre')
+
+        self.assertEqual(query.variables['D2C'].name, 'Variável (Código)')
+        self.assertEqual(query.variables['D2N'].name, 'Variável')
+
+
+        

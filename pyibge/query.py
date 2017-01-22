@@ -9,6 +9,7 @@
 
 import requests
 from lxml import html
+from collections import namedtuple, OrderedDict
 
 class IBGEQuery:
     """ The class that represents a query.
@@ -89,5 +90,26 @@ class IBGEQuery:
         table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
         self.table_info['table_name'] = table_title
 
+        table_survey = help_tree.xpath('//*[@id="lblNomePesquisa"]/text()')[0]
+        self.table_info['table_survey'] = table_survey
+
+        table_theme = help_tree.xpath('//*[@id="lblNomeAssunto"]/text()')[0]
+        self.table_info['table_theme'] = table_theme
+
         self.has_help = True    # We got the help information. Don't redo the query
                                 # unless the table changes.
+
+    def get_data(self):
+
+        url = self.build_URL()
+        data = requests.get(url).json(object_pairs_hook=OrderedDict)
+        
+        self.variables = {}
+
+        header, content = data[0], data[1:]
+
+        # Chew on the header
+        Entry = namedtuple('Entry', 'name value')
+
+        for key in header.keys():
+            self.variables[key] = Entry(name = header[key], value = None)
