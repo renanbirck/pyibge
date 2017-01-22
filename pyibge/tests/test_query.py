@@ -78,7 +78,6 @@ class TestQuery(TestCase):
         # Check if the information directory was successfully read and parsed
         # from the JSON answer the server gave.
 
-
         self.assertEqual(query.variables['D1C'].name, 'Trimestre (Código)')
         self.assertEqual(query.variables['D1N'].name, 'Trimestre')
 

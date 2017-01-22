@@ -7,9 +7,9 @@
 # Module where the main query functions are defined.
 # Presently, this is a very, VERY thin wrapper arround the API.
 
-import requests
-from lxml import html
 from collections import namedtuple, OrderedDict
+from lxml import html
+import requests
 
 class IBGEQuery:
     """ The class that represents a query.
@@ -49,15 +49,15 @@ class IBGEQuery:
     def build_URL(self):
         """ Builds the URL for the queery. """
 
-        CONSTANT_PART = "http://api.sidra.ibge.gov.br/values"
-        VARIABLE_PART = '/t/' + str(self.table_ID)
+        constant_part = "http://api.sidra.ibge.gov.br/values"
+        variable_part = '/t/' + str(self.table_ID)
 
         if self.params[0] != '/':
-            VARIABLE_PART += '/'
+            variable_part += '/'
 
-        VARIABLE_PART += self.params
+        variable_part += self.params
 
-        return CONSTANT_PART + VARIABLE_PART
+        return constant_part + variable_part
 
     def get_table_info(self):
         """ Gets the information (table title, variables, periods...)
@@ -100,7 +100,7 @@ class IBGEQuery:
                                 # unless the table changes.
 
     def get_data(self):
-
+        """ Retrieves the data and then loads the result into the 'variables' object. """
         url = self.build_URL()
         data = requests.get(url).json(object_pairs_hook=OrderedDict)
         
@@ -112,4 +112,4 @@ class IBGEQuery:
         Entry = namedtuple('Entry', 'name value')
 
         for key in header.keys():
-            self.variables[key] = Entry(name = header[key], value = None)
+            self.variables[key] = Entry(name=header[key], value=None)
