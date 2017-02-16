@@ -75,7 +75,7 @@ class TestQuery(TestCase):
         query = pyibge.IBGEQuery(table_ID=4100, params='p/201201/v/1641/c604/31750/n6/4205407')
         query.get_data()
 
-        # Check if the information directory was successfully read and parsed
+        # Check if the information was successfully read and parsed
         # from the JSON answer the server gave.
 
         self.assertEqual(query.variables['D1C'].name, 'Trimestre (Código)')
@@ -84,5 +84,15 @@ class TestQuery(TestCase):
         self.assertEqual(query.variables['D2C'].name, 'Variável (Código)')
         self.assertEqual(query.variables['D2N'].name, 'Variável')
 
+        self.assertEqual(query.variables['D3C'].name[0:4], 'Tipo')
+        self.assertEqual(query.variables['D3N'].name[0:4], 'Tipo')
+        
+        self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
+        self.assertEqual(query.variables['D4N'].name, 'Município')
 
+        self.assertEqual(query.variables['MC'].name, 'Unidade de Medida (Código)')
+        self.assertEqual(query.variables['MN'].name, 'Unidade de Medida')
+
+        self.assertEqual(query.variables['V'].name, 'Valor')
+        
         
