@@ -112,17 +112,16 @@ class IBGEQuery:
         
         self.variables = {}
 
-        header, content = data[0], data[1:][0]
+        header, content = data[0], data[1:]
 
         # Chew on the header
 
         for key in header.keys():
             self.variables[key] = self.Entry(name=header[key], value=None)
 
-        for key in content.keys():
-            print(key, " -> ", content[key])
+        for content_line in content:
+            for key in content_line.keys():
+                print(key, " -> ", content_line[key])
 
-            # namedtuples are immutable, then we have todo this
-            # CRAP.
-            self.variables[key].value = content[key]
-            
+                # namedtuples are immutable, then we have todo this
+                self.variables[key].value = content_line[key]
