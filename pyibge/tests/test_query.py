@@ -95,4 +95,6 @@ class TestQuery(TestCase):
 
         self.assertEqual(query.variables['V'].name, 'Valor')
         
-        
+        # Check the received values
+
+        self.assertEqual(query.variables['V'].value, '9')

@@ -15,6 +15,12 @@ class IBGEQuery:
     """ The class that represents a query.
     It receives the table ID and the parameters (available on the API documentation)."""
 
+    class Entry:
+        def __init__(self, name=None, value=None):
+            self.name = name
+            self.value = value
+        
+
     def __init__(self, table_ID=None, params=None):
         self.has_help = False
         if 0 < table_ID < 9999:
@@ -106,10 +112,17 @@ class IBGEQuery:
         
         self.variables = {}
 
-        header, content = data[0], data[1:]
+        header, content = data[0], data[1:][0]
 
         # Chew on the header
-        Entry = namedtuple('Entry', 'name value')
 
         for key in header.keys():
-            self.variables[key] = Entry(name=header[key], value=None)
+            self.variables[key] = self.Entry(name=header[key], value=None)
+
+        for key in content.keys():
+            print(key, " -> ", content[key])
+
+            # namedtuples are immutable, then we have todo this
+            # CRAP.
+            self.variables[key].value = content[key]
+            
