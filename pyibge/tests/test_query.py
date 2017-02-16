@@ -68,9 +68,7 @@ class TestQuery(TestCase):
         self.assertEqual(query.has_help, False)
 
     def test_get_data(self):
-        """ Run a query, and then check whether we receive the dictionaries. 
-        To avoid issues with changing values, we don't check them, rather, we 
-        check the structure to see if it matches. """
+        """ Run a query, and then check whether we receive the dictionaries. """
 
         query = pyibge.IBGEQuery(table_ID=4100, params='p/201201/v/1641/c604/31750/n6/4205407')
         query.get_data()
@@ -112,4 +110,10 @@ class TestQuery(TestCase):
         self.assertEqual(query.variables['MN'].value, 'Mil pessoas')
 
         self.assertEqual(query.variables['V'].value, '9')
+
+    def test_get_data_with_multiple_variables(self):
+        query = pyibge.IBGEQuery(table_ID=4100, params='p/201201,201202/v/1641/c604/31750/n6/4205407')
+        query.get_data()
+
+        self.assertEqual(query.num_results, 2)
         
