@@ -96,5 +96,20 @@ class TestQuery(TestCase):
         self.assertEqual(query.variables['V'].name, 'Valor')
         
         # Check the received values
+        self.assertEqual(query.variables['D1C'].value, '201201')
+        self.assertEqual(query.variables['D1N'].value, '1º trimestre 2012')
+        
+        self.assertEqual(query.variables['D2C'].value, '1641')
+        self.assertEqual(query.variables['D2N'].value, 'Pessoas de 14 anos ou mais de idade')
+
+        self.assertEqual(query.variables['D3C'].value, '31750')
+        self.assertEqual(query.variables['D3N'].value, 'Desocupado')
+
+        self.assertEqual(query.variables['D4C'].value, '4205407')
+        self.assertEqual(query.variables['D4N'].value, 'Florianópolis - SC')
+
+        self.assertEqual(query.variables['MC'].value, '1572')
+        self.assertEqual(query.variables['MN'].value, 'Mil pessoas')
 
         self.assertEqual(query.variables['V'].value, '9')
+        
