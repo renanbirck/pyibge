@@ -118,15 +118,14 @@ class IBGEQuery:
         # Chew on the header
         
         for key in header.keys():
-            self.variables[key] = self.Entry(name=header[key], value=None)
+            self.variables[key] = self.Entry(name=header[key], value=[None] * self.num_results)
 
         # Chew on the contents
         
         for (line_number, content_line) in enumerate(content):
             print("Parsing line ", line_number)
-
             for key in content_line.keys():
                 print(key, " -> ", content_line[key])
 
                 # namedtuples are immutable, then we have todo this
-                self.variables[key].value = content_line[key]
+                self.variables[key].value[line_number] = content_line[key]
