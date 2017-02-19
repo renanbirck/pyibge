@@ -7,7 +7,7 @@
 # Module where the main query functions are defined.
 # Presently, this is a very, VERY thin wrapper arround the API.
 
-from collections import namedtuple, OrderedDict
+from collections import OrderedDict
 from lxml import html
 import requests
 
@@ -16,10 +16,11 @@ class IBGEQuery:
     It receives the table ID and the parameters (available on the API documentation)."""
 
     class Entry:
+        """ namedtuple doesn't suit us since it's immutable.
+            then, this class is a simple struct-like implementation. """
         def __init__(self, name=None, value=None):
             self.name = name
             self.value = value
-        
 
     def __init__(self, table_ID=None, params=None):
         self.has_help = False
@@ -109,16 +110,15 @@ class IBGEQuery:
         """ Retrieves the data and then loads the result into the 'variables' object. """
         url = self.build_URL()
         data = requests.get(url).json(object_pairs_hook=OrderedDict)
-        
         self.variables = {}
-
         header, content = data[0], data[1:]
         self.num_results = len(content)
 
         # Chew on the header
         
         for key in header.keys():
-            self.variables[key] = self.Entry(name=header[key], value=[None] * self.num_results)
+            self.variables[key] = self.Entry(name=header[key],
+                                             value=[None] * self.num_results)
 
         # Chew on the contents
         

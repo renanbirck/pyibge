@@ -82,9 +82,9 @@ class TestQuery(TestCase):
         self.assertEqual(query.variables['D2C'].name, 'Variável (Código)')
         self.assertEqual(query.variables['D2N'].name, 'Variável')
 
-        self.assertEqual(query.variables['D3C'].name[0:4], 'Tipo')
-        self.assertEqual(query.variables['D3N'].name[0:4], 'Tipo')
-        
+        self.assertTrue(query.variables['D3C'].name.startswith('Tipo'))
+        self.assertTrue(query.variables['D3N'].name.startswith('Tipo'))
+                
         self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
         self.assertEqual(query.variables['D4N'].name, 'Município')
 
@@ -112,8 +112,121 @@ class TestQuery(TestCase):
         self.assertEqual(query.variables['V'].value[0], '9')
 
     def test_get_data_with_multiple_variables(self):
-        query = pyibge.IBGEQuery(table_ID=4100, params='p/201201,201202/v/1641/c604/31750/n6/4205407')
+        query = pyibge.IBGEQuery(table_ID=4100, 
+                                 params='p/201201,201202/v/1641/c604/31750/n6/4205407')
         query.get_data()
 
         self.assertEqual(query.num_results, 2)
+
+        self.assertEqual(query.variables['D1C'].name, 'Trimestre (Código)')
+        self.assertEqual(query.variables['D1N'].name, 'Trimestre')
+
+        self.assertEqual(query.variables['D2C'].name, 'Variável (Código)')
+        self.assertEqual(query.variables['D2N'].name, 'Variável')
+
+        self.assertTrue(query.variables['D3C'].name.startswith('Tipo'))
+        self.assertTrue(query.variables['D3N'].name.startswith('Tipo'))
         
+        self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
+        self.assertEqual(query.variables['D4N'].name, 'Município')
+
+        self.assertEqual(query.variables['MC'].name, 'Unidade de Medida (Código)')
+        self.assertEqual(query.variables['MN'].name, 'Unidade de Medida')
+
+        self.assertEqual(query.variables['V'].name, 'Valor')
+
+        # Check the received values
+        self.assertEqual(query.variables['D1C'].value[0], '201201')
+        self.assertEqual(query.variables['D1N'].value[0], '1º trimestre 2012')
+        
+        self.assertEqual(query.variables['D2C'].value[0], '1641')
+        self.assertEqual(query.variables['D2N'].value[0], 'Pessoas de 14 anos ou mais de idade')
+
+        self.assertEqual(query.variables['D3C'].value[0], '31750')
+        self.assertEqual(query.variables['D3N'].value[0], 'Desocupado')
+
+        self.assertEqual(query.variables['D4C'].value[0], '4205407')
+        self.assertEqual(query.variables['D4N'].value[0], 'Florianópolis - SC')
+
+        self.assertEqual(query.variables['MC'].value[0], '1572')
+        self.assertEqual(query.variables['MN'].value[0], 'Mil pessoas')
+
+        self.assertEqual(query.variables['V'].value[0], '9')
+
+        # Check the received values
+        self.assertEqual(query.variables['D1C'].value[1], '201202')
+        self.assertEqual(query.variables['D1N'].value[1], '2º trimestre 2012')
+        
+        self.assertEqual(query.variables['D2C'].value[1], '1641')
+        self.assertEqual(query.variables['D2N'].value[1], 'Pessoas de 14 anos ou mais de idade')
+
+        self.assertEqual(query.variables['D3C'].value[1], '31750')
+        self.assertEqual(query.variables['D3N'].value[1], 'Desocupado')
+
+        self.assertEqual(query.variables['D4C'].value[1], '4205407')
+        self.assertEqual(query.variables['D4N'].value[1], 'Florianópolis - SC')
+
+        self.assertEqual(query.variables['MC'].value[1], '1572')
+        self.assertEqual(query.variables['MN'].value[1], 'Mil pessoas')
+
+        self.assertEqual(query.variables['V'].value[1], '12')
+
+    def test_get_data_with_multiple_variables_case2(self):
+        query = pyibge.IBGEQuery(table_ID=4100, 
+                                 params='p/201201/v/1641/c604/31750,31751/n6/4205407')
+        query.get_data()
+
+        self.assertEqual(query.num_results, 2)
+
+        self.assertEqual(query.variables['D1C'].name, 'Trimestre (Código)')
+        self.assertEqual(query.variables['D1N'].name, 'Trimestre')
+
+        self.assertEqual(query.variables['D2C'].name, 'Variável (Código)')
+        self.assertEqual(query.variables['D2N'].name, 'Variável')
+
+        self.assertTrue(query.variables['D3C'].name.startswith('Tipo'))
+        self.assertTrue(query.variables['D3N'].name.startswith('Tipo'))
+        
+        self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
+        self.assertEqual(query.variables['D4N'].name, 'Município')
+
+        self.assertEqual(query.variables['MC'].name, 'Unidade de Medida (Código)')
+        self.assertEqual(query.variables['MN'].name, 'Unidade de Medida')
+
+        self.assertEqual(query.variables['V'].name, 'Valor')
+
+        # Check the received values
+        self.assertEqual(query.variables['D1C'].value[0], '201201')
+        self.assertEqual(query.variables['D1N'].value[0], '1º trimestre 2012')
+        
+        self.assertEqual(query.variables['D2C'].value[0], '1641')
+        self.assertEqual(query.variables['D2N'].value[0], 'Pessoas de 14 anos ou mais de idade')
+
+        self.assertEqual(query.variables['D3C'].value[0], '31750')
+        self.assertEqual(query.variables['D3N'].value[0], 'Desocupado')
+
+        self.assertEqual(query.variables['D4C'].value[0], '4205407')
+        self.assertEqual(query.variables['D4N'].value[0], 'Florianópolis - SC')
+
+        self.assertEqual(query.variables['MC'].value[0], '1572')
+        self.assertEqual(query.variables['MN'].value[0], 'Mil pessoas')
+
+        self.assertEqual(query.variables['V'].value[0], '9')
+
+        # Check the received values
+        self.assertEqual(query.variables['D1C'].value[1], '201201')
+        self.assertEqual(query.variables['D1N'].value[1], '1º trimestre 2012')
+        
+        self.assertEqual(query.variables['D2C'].value[1], '1641')
+        self.assertEqual(query.variables['D2N'].value[1], 'Pessoas de 14 anos ou mais de idade')
+
+        self.assertEqual(query.variables['D3C'].value[1], '31751')
+        self.assertEqual(query.variables['D3N'].value[1], 'Subocupado por insuficiência de horas trabalhadas')
+
+        self.assertEqual(query.variables['D4C'].value[1], '4205407')
+        self.assertEqual(query.variables['D4N'].value[1], 'Florianópolis - SC')
+
+        self.assertEqual(query.variables['MC'].value[1], '1572')
+        self.assertEqual(query.variables['MN'].value[1], 'Mil pessoas')
+
+        self.assertEqual(query.variables['V'].value[1], '7')
