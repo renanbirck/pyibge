@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
-#
-# pyIBGE: A module to access data from the Brazilian Institute
-# of Geography and Statistics (IBGE)
-# (c) 2016 Renan Birck Pinheiro [renan.birck.pinheiro@gmail.com]
 
-# Module where the main query functions are defined.
-# Presently, this is a very, VERY thin wrapper arround the API.
+""" pyIBGE: A module to access data from the Brazilian Institute
+ of Geography and Statistics (IBGE)
+ (c) 2016 Renan Birck Pinheiro [renan.birck.pinheiro@gmail.com]
+
+ Module where the main query functions are defined.
+ Presently, this is a very, VERY thin wrapper arround the API. """
 
 from collections import OrderedDict
 from lxml import html
@@ -28,7 +27,6 @@ class IBGEQuery:
             self.my_table_ID = table_ID
         else:
             raise ValueError("Table ID must be between 0 and 9999.")
-
         if not params:
             raise ValueError("Need to specify what params you want.")
         elif '/t/' in params:
@@ -71,6 +69,7 @@ class IBGEQuery:
         of the table. """
 
         if self.has_help:
+            # We've already been there. Spare us the network request.
             return
 
         self.table_info = {}
@@ -94,6 +93,7 @@ class IBGEQuery:
         if 'Tabela não possui dados de uso público' in unavailable_table:
             raise ValueError("This table is not available to the public.")
 
+        # Now walk the HTML.
         table_title = help_tree.xpath('//*[@id="lblNomeTabela"]/text()')[0]
         self.table_info['table_name'] = table_title
 
@@ -114,14 +114,15 @@ class IBGEQuery:
         header, content = data[0], data[1:]
         self.num_results = len(content)
 
-        # Chew on the header
-        
+        # Chew on the header and create a structure to hold the data we will parse next.
         for key in header.keys():
             self.variables[key] = self.Entry(name=header[key],
                                              value=[None] * self.num_results)
 
-        # Chew on the contents
-        
+        # Chew on the contents, loading them a line at a time.
+        # I wanted to do this as a list comprehension, but this is not a good idea.
+        # cf. http://stackoverflow.com/questions/10291997/
+
         for (line_number, content_line) in enumerate(content):
             print("Parsing line ", line_number)
             for key in content_line.keys():
