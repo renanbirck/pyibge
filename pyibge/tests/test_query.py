@@ -42,17 +42,16 @@ class TestQuery(TestCase):
         query = pyibge.IBGEQuery(table_ID=1000, params='n2')
         query.get_table_info()
 
-        self.assertEqual(query.table_info['table_name'], 
+        self.assertEqual(query.table_info['table_name'],
         "Área plantada, área colhida, quantidade produzida e rendimento " \
         "médio de amendoim, 1ª e 2ª safras")
 
         self.assertEqual(query.table_info['table_survey'],
-        "Produção Agrícola Municipal")
+                         "Produção Agrícola Municipal")
 
         self.assertEqual(query.table_info['table_theme'],
-        "Lavouras temporárias")
+                         "Lavouras temporárias")
 
-        
     def test_unavailable_table_info(self):
         """ Test trying an unavailable table. """
         query = pyibge.IBGEQuery(table_ID=115, params='n2')
@@ -84,7 +83,7 @@ class TestQuery(TestCase):
 
         self.assertTrue(query.variables['D3C'].name.startswith('Tipo'))
         self.assertTrue(query.variables['D3N'].name.startswith('Tipo'))
-                
+
         self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
         self.assertEqual(query.variables['D4N'].name, 'Município')
 
@@ -92,11 +91,11 @@ class TestQuery(TestCase):
         self.assertEqual(query.variables['MN'].name, 'Unidade de Medida')
 
         self.assertEqual(query.variables['V'].name, 'Valor')
-        
+
         # Check the received values
         self.assertEqual(query.variables['D1C'].value[0], '201201')
         self.assertEqual(query.variables['D1N'].value[0], '1º trimestre 2012')
-        
+
         self.assertEqual(query.variables['D2C'].value[0], '1641')
         self.assertEqual(query.variables['D2N'].value[0], 'Pessoas de 14 anos ou mais de idade')
 
@@ -111,8 +110,8 @@ class TestQuery(TestCase):
 
         self.assertEqual(query.variables['V'].value[0], '9')
 
-    def test_get_data_with_multiple_variables(self):
-        query = pyibge.IBGEQuery(table_ID=4100, 
+    def test_get_data_multiple_periods(self):
+        query = pyibge.IBGEQuery(table_ID=4100,
                                  params='p/201201,201202/v/1641/c604/31750/n6/4205407')
         query.get_data()
 
@@ -126,7 +125,7 @@ class TestQuery(TestCase):
 
         self.assertTrue(query.variables['D3C'].name.startswith('Tipo'))
         self.assertTrue(query.variables['D3N'].name.startswith('Tipo'))
-        
+
         self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
         self.assertEqual(query.variables['D4N'].name, 'Município')
 
@@ -138,7 +137,7 @@ class TestQuery(TestCase):
         # Check the received values
         self.assertEqual(query.variables['D1C'].value[0], '201201')
         self.assertEqual(query.variables['D1N'].value[0], '1º trimestre 2012')
-        
+
         self.assertEqual(query.variables['D2C'].value[0], '1641')
         self.assertEqual(query.variables['D2N'].value[0], 'Pessoas de 14 anos ou mais de idade')
 
@@ -156,7 +155,7 @@ class TestQuery(TestCase):
         # Check the received values
         self.assertEqual(query.variables['D1C'].value[1], '201202')
         self.assertEqual(query.variables['D1N'].value[1], '2º trimestre 2012')
-        
+
         self.assertEqual(query.variables['D2C'].value[1], '1641')
         self.assertEqual(query.variables['D2N'].value[1], 'Pessoas de 14 anos ou mais de idade')
 
@@ -171,8 +170,8 @@ class TestQuery(TestCase):
 
         self.assertEqual(query.variables['V'].value[1], '12')
 
-    def test_get_data_with_multiple_variables_case2(self):
-        query = pyibge.IBGEQuery(table_ID=4100, 
+    def test_get_data_multiple_variables(self):
+        query = pyibge.IBGEQuery(table_ID=4100,
                                  params='p/201201/v/1641/c604/31750,31751/n6/4205407')
         query.get_data()
 
@@ -186,7 +185,7 @@ class TestQuery(TestCase):
 
         self.assertTrue(query.variables['D3C'].name.startswith('Tipo'))
         self.assertTrue(query.variables['D3N'].name.startswith('Tipo'))
-        
+
         self.assertEqual(query.variables['D4C'].name, 'Município (Código)')
         self.assertEqual(query.variables['D4N'].name, 'Município')
 
@@ -198,7 +197,7 @@ class TestQuery(TestCase):
         # Check the received values
         self.assertEqual(query.variables['D1C'].value[0], '201201')
         self.assertEqual(query.variables['D1N'].value[0], '1º trimestre 2012')
-        
+
         self.assertEqual(query.variables['D2C'].value[0], '1641')
         self.assertEqual(query.variables['D2N'].value[0], 'Pessoas de 14 anos ou mais de idade')
 
@@ -216,12 +215,13 @@ class TestQuery(TestCase):
         # Check the received values
         self.assertEqual(query.variables['D1C'].value[1], '201201')
         self.assertEqual(query.variables['D1N'].value[1], '1º trimestre 2012')
-        
+
         self.assertEqual(query.variables['D2C'].value[1], '1641')
         self.assertEqual(query.variables['D2N'].value[1], 'Pessoas de 14 anos ou mais de idade')
 
         self.assertEqual(query.variables['D3C'].value[1], '31751')
-        self.assertEqual(query.variables['D3N'].value[1], 'Subocupado por insuficiência de horas trabalhadas')
+        self.assertEqual(query.variables['D3N'].value[1], "Subocupado por insuficiência de " \
+                                                          "horas trabalhadas")
 
         self.assertEqual(query.variables['D4C'].value[1], '4205407')
         self.assertEqual(query.variables['D4N'].value[1], 'Florianópolis - SC')

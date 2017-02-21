@@ -1,4 +1,5 @@
-
+# coding: utf-8
+#
 """ pyIBGE: A module to access data from the Brazilian Institute
  of Geography and Statistics (IBGE)
  (c) 2016 Renan Birck Pinheiro [renan.birck.pinheiro@gmail.com]
