@@ -125,9 +125,9 @@ class IBGEQuery:
         # cf. http://stackoverflow.com/questions/10291997/
 
         for (line_number, content_line) in enumerate(content):
-            print("Parsing line ", line_number)
+            #print("Parsing line ", line_number)
             for key in content_line.keys():
-                print(key, " -> ", content_line[key])
+            #    print(key, " -> ", content_line[key])
 
                 # namedtuples are immutable, then we have todo this
                 self.variables[key].value[line_number] = content_line[key]
