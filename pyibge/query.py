@@ -2,7 +2,7 @@
 #
 """ pyIBGE: A module to access data from the Brazilian Institute
  of Geography and Statistics (IBGE)
- (c) 2016 Renan Birck Pinheiro [renan.birck.pinheiro@gmail.com]
+ (c) 2016 Renan Birck Pinheiro [renan.ee.ufsm@gmail.com]
 
  Module where the main query functions are defined.
  Presently, this is a very, VERY thin wrapper arround the API. """
