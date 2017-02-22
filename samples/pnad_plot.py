@@ -11,7 +11,35 @@ except:
 
 import pyibge
 
-query = pyibge.IBGEQuery(table_ID=4100, params='p/all/v/1641/c604/31750/n6/4205407')
+# Table ID: 4100 (Unemploment/underemployment)
+# p/all: all the data available
+# v/1641: people 14 or older, in thousands
+# c604/40286: unemployed or in potential workforce (looking for job) or underemployed (<30 hours)
+# n6/4205407: city/Florianópolis
+
+query = pyibge.IBGEQuery(table_ID=4100, params='p/all/v/1641/c604/40286/n6/4205407')
 query.get_data()
 
-print(query.variables['D1C'].value)
+trimesters = [pyibge.period_to_date(x) for x in query.variables['D1C'].value]
+values = [int(x) for x in query.variables['V'].value]
+
+print("Trimesters is ", trimesters)
+print("Values is ", values)
+
+
+ticks = list(range(len(values))) # XXX: ugly hack
+plt.ylim([min(values)-2, max(values)+2])
+
+plt.plot(ticks, values, 'g-o')
+plt.xticks(ticks, trimesters, fontsize=8, rotation=45)
+
+plt.title('Subutilização da força de trabalho: Florianópolis', fontsize=16)
+plt.xlabel("Trimestre")
+plt.ylabel("População desocupada (milhares)")
+
+try:
+    sns.despine()
+except(NameError):
+    pass
+
+plt.show()
