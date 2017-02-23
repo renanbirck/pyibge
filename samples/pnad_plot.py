@@ -42,4 +42,5 @@ try:
 except(NameError):
     pass
 
+plt.tight_layout()
 plt.show()
