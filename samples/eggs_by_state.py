@@ -29,10 +29,10 @@ values.sort(key=lambda value: value[1])
 print(values)
 
 pos = range(len(values))
-labels = [value[0] for value in values]
-values = [value[1] for value in values]
 
-plt.barh(pos, values, align='center')
+labels, amounts = zip(*values)
+
+plt.barh(pos, amounts, align='center')
 plt.yticks(pos, labels)
 plt.xlabel('Ovos (milhares de dúzias)')
 plt.tight_layout()
