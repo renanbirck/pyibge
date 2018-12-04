@@ -9,12 +9,12 @@ except:
 import pyibge
 
 # Table 915: number of informers, number of chickens and eggs produced
-# p/201603: 3rd trimester of 2016
+# p/201803: 3rd trimester of 2018
 # v/29: number of eggs produced (thousand dozens)
 # c12716/115236: trimester total
 # n3/all: all states of Brazil
 
-query = pyibge.IBGEQuery(table_ID=915, params='p/201603/v/29/c12716/115236/n3/all')
+query = pyibge.IBGEQuery(table_ID=915, params='p/201802/v/29/c12716/115236/n3/all')
 query.get_data()
 
 values = []
@@ -32,7 +32,7 @@ pos = range(len(values))
 
 labels, amounts = zip(*values)
 
-plt.barh(pos, amounts, align='center')
+plt.barh(pos, amounts, align='center', log=True)
 plt.yticks(pos, labels)
 plt.xlabel('Ovos (milhares de dúzias)')
 plt.tight_layout()
