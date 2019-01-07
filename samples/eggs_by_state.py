@@ -9,7 +9,7 @@ except:
 import pyibge
 
 # Table 915: number of informers, number of chickens and eggs produced
-# p/201803: 3rd trimester of 2018
+# p/201802: 2nd trimester of 2018
 # v/29: number of eggs produced (thousand dozens)
 # c12716/115236: trimester total
 # n3/all: all states of Brazil
