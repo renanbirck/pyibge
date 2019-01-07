@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 # pyIBGE: A module to access data from the Brazilian Institute of Geography and Statistics (IBGE)
-# (c) 2016 Renan Birck Pinheiro [renan.ee.ufsm@gmail.com]
+# (c) 2016 Renan Birck Pinheiro [renan.birck.pinheiro@gmail.com]
 
 # This module provides extra routines that can be useful while building a query. 
 
